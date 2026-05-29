@@ -189,6 +189,5 @@ def predict():
         return jsonify({"error": f"Prediction computation failed: {str(ex)}"}), 400
 
 if __name__ == "__main__":
-    host = os.environ.get("FLASK_RUN_HOST", "127.0.0.1")
-    port = int(os.environ.get("FLASK_RUN_PORT", 5000))
-    app.run(host=host, port=port, debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
