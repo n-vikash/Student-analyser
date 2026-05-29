@@ -22,12 +22,13 @@ export default function Dashboard() {
     try {
       setLoading(true);
       setError('');
+      setResumeIntelData(null);
       const token = localStorage.getItem('token');
       const url = historyId ? `/api/student/analysis/${historyId}` : '/api/student/analytics';
       const response = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } });
       setAnalytics(response.data);
       setIsHistorical(!!historyId);
-      if (response.data?.resumeIntel) setResumeIntelData(response.data.resumeIntel);
+      if (historyId && response.data?.resumeIntel) setResumeIntelData(response.data.resumeIntel);
     } catch (err) {
       console.error("[FETCH ANALYTICS ERROR]", err);
       if (err.response?.status === 401 || err.response?.status === 403) {
@@ -42,7 +43,11 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => { fetchAnalytics(); }, [historyId]);
+  useEffect(() => { 
+    if(!historyId){
+      setResumeIntelData(null);
+    }
+    fetchAnalytics(); }, [historyId]);
 
   const handleFileUpload = async (file) => {
     if (!file) return;
