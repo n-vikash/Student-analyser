@@ -149,7 +149,7 @@ router.post("/analyze/student", authenticateToken, checkDB, async (req, res) => 
     let analytics;
     try {
       console.log("[SERVER ML] Querying authentic Scikit-learn Flask prediction APIs...");
-      const flaskRes = await axios.post("http://127.0.0.1:5000/api/predict", studentData, { timeout: 3000 });
+      const flaskRes = await axios.post(`${process.env.PYTHON_API_URL}/api/predict`, studentData, { timeout: 3000 });
       analytics = flaskRes.data;
       analytics.isPythonServiceOffline = false;
       console.log("✅ [SERVER ML] Obtained prediction from Scikit-learn/Flask with diagnostics metrics!");
@@ -541,7 +541,7 @@ router.post("/student/resume/analyze", authenticateToken, checkDB, upload.single
 
 router.get("/ml/status", async (req, res) => {
   try {
-    const checkRes = await axios.get("http://127.0.0.1:5000/api/python-health", { timeout: 1500 });
+    const checkRes = await axios.get(`${process.env.PYTHON_API_URL}/api/python-health`, { timeout: 1500 });
     res.json({
       online: true,
       service: "Flask/Scikit-learn",

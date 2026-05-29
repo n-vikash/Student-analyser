@@ -16,7 +16,8 @@ if (!process.env.MONGODB_URI && fs.existsSync(".env.example")) {
 }
 
 // Spin up companion service asynchronously on boot
-initPythonAndFlask();
+// initPythonAndFlask();
+console.log("Using external Flask API");
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "3000", 10);
