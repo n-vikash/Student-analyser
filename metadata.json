@@ -1,0 +1,6 @@
+{
+  "name": "Future AI",
+  "description": "A COMPLETE production-ready full-stack AI-powered analytics SaaS platform. Map Your Future With Your Performance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
